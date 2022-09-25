@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders,  HttpErrorResponse, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpHeaders,  HttpErrorResponse, HttpRequest, HttpEvent, HttpEventType } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { FeedItem } from '../feed/models/feed-item.model';
@@ -29,8 +29,9 @@ export class ApiService {
     this.token = token;
   }
 
-  get(endpoint): Promise<any> {
+  get(endpoint): Promise<any> {    
     const url = `${API_HOST}${endpoint}`;
+    console.log('Configured url: %s', url);
     const req = this.http.get(url, this.httpOptions).pipe(map(this.extractData));
 
     return req
